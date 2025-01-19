@@ -11,6 +11,7 @@ import viteCompression from "vite-plugin-compression";
 import vueSetupExtend from "unplugin-vue-setup-extend-plus/vite";
 import NextDevTools from "vite-plugin-vue-devtools";
 import { codeInspectorPlugin } from "code-inspector-plugin";
+import legacy from "@vitejs/plugin-legacy";
 
 /**
  * 创建 vite 插件
@@ -50,7 +51,11 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
     VITE_CODEINSPECTOR &&
       codeInspectorPlugin({
         bundler: "vite"
-      })
+      }),
+    // 兼容低版本浏览器
+    legacy({
+      targets: ["defaults", "not IE 11"]
+    })
   ];
 };
 
